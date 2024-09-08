@@ -1,12 +1,15 @@
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} main-product"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
+  {% endif %}
+  {% if section.settings.slider_logo != blank %}
+    style="--branded-logo: url({{ section.settings.slider_logo | image_url  }})";
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
@@ -77,6 +80,26 @@
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
+        <div class="product-offers">
+          <div class="product-offers__grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'product_offers' %}
+                <div class="product-offers__grid-item">
+                  {% if block.settings.offer_icon != blank %}
+                    <div class="product-offers__icon">
+                      <img src="{{ block.settings.offer_icon | image_url  }}" alt="{{ block.settings.offer_icon.alt }}" width="{{ block.settings.offer_icon.width }}" height="{{ block.settings.offer_icon.height }}">
+                    </div>
+                  {% endif %}
+                  {% if block.settings.title != blank %}
+                    <div class="product-offers__title">
+                      {{ block.settings.title }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
@@ -730,6 +753,22 @@
   "tag": "section",
   "class": "section",
   "blocks": [
+    {
+      "type": "product_offers",
+      "name": "Offers",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Icon",
+          "id": "offer_icon"
+        },
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "title"
+        }
+      ]
+    },
     {
       "type": "@app"
     },
@@ -2077,6 +2116,11 @@
     }
   ],
   "settings": [
+    {
+      "type": "image_picker",
+      "label": "Slider Logo",
+      "id": "slider_logo"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",

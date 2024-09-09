@@ -29,6 +29,7 @@
       }
     },
     "continue_shopping": "Continue shopping",
+    "popular_tag": "MOST POPULAR KIT",
     "pagination": {
       "label": "Pagination",
       "page": "Page {{ number }}",

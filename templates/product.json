@@ -23,6 +23,13 @@
             "emptyRatingWidget": true
           }
         },
+        "text_pPGAdG": {
+          "type": "text",
+          "settings": {
+            "text": "Order today and receive your Firebee by June 15th, 2021",
+            "text_style": "body"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -35,13 +42,6 @@
           "settings": {
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
-          }
-        },
-        "text_pPGAdG": {
-          "type": "text",
-          "settings": {
-            "text": "Text block",
-            "text_style": "body"
           }
         },
         "product_offers_ywJywk": {
@@ -76,9 +76,9 @@
       "block_order": [
         "title",
         "loox_reviews_loox_rating_zbBLjF",
+        "text_pPGAdG",
         "variant_picker",
         "buy_buttons",
-        "text_pPGAdG",
         "product_offers_ywJywk",
         "product_offers_mEGbfC",
         "product_offers_9KFy7T",
@@ -86,6 +86,7 @@
       ],
       "settings": {
         "slider_logo": "shopify:\/\/shop_images\/Group_1239.png",
+        "payment_image": "shopify:\/\/shop_images\/Group_877.png",
         "enable_sticky_info": false,
         "color_scheme": "scheme-1",
         "media_size": "medium",

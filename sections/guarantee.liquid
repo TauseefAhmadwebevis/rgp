@@ -1,0 +1,49 @@
+<section class="guarantee">
+  <div class="guarantee__container">
+    <div class="guarantee__grid">
+      {% if section.settings.guarantee_img != blank %}
+        <div class="guarantee__badge">
+          <img src="{{ section.settings.guarantee_img | image_url  }}" alt="{{ section.settings.guarantee_img.alt }}" width="{{ section.settings.guarantee_img.width }}" height="{{ section.settings.guarantee_img.height }}">
+        </div>
+      {% endif %}
+      <div class="guarantee__content">
+        {% if section.settings.heading != blank %}
+          <h2 class="guarantee__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.desc != blank %}
+          <div class="guarantee__desc">
+            {{ section.settings.desc }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Guarantee",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading"
+    },
+    {
+      "type": "textarea",
+      "label": "Description",
+      "id": "desc"
+    },
+    {
+      "type": "image_picker",
+      "label": "Guarantee Badge",
+      "id": "guarantee_img"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee"
+    }
+  ]
+}
+{% endschema %}

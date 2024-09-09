@@ -21,6 +21,8 @@
 -%}
 
 {%- for value in option.values -%}
+  {% assign index = forloop.index |  minus: 1 %}
+  {% assign variant = product.variants[index] %}
   {%- liquid
     assign swatch_focal_point = null
     if value.swatch.image
@@ -91,10 +93,55 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
-      {{ label_unavailable }}
-    </label>
+    <div class="label_wrapper">
+      <label for="{{ input_id }}">
+        <span class="value-label visually-hidden">
+          {{ value -}}
+        </span>
+        {{ label_unavailable }} 
+      </label>
+      <div class="variant__header">
+        <span class="variant__header-title">
+          {{ value }}
+        </span>
+        <span class="variant__header-price">
+          {% if variant.compare_at_price %}
+            <span class="variant__compareprice">{{ variant.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="variant__price">
+            {{ variant.price | money }}
+          </span>
+        </span>
+      </div>
+      {% if variant.metafields.custom.most_popular %}
+        <div class="variant__popular">
+          {{ 'general.popular_tag' | t }}
+        </div>
+      {% endif %}
+      {% assign allfeatures = variant.metafields.custom.variant_feature_list.value %}
+      {% if allfeatures != blank %}
+        <div class="variant__features">
+          {% for varaintfeature in allfeatures %}
+            {% if varaintfeature.feature != blank %}
+              <div class="variant__feature variant__feature--{{ forloop.index }}">
+                <div class="variant__feature-icon">
+                  <img src="https://cdn.shopify.com/s/files/1/0702/3365/3476/files/Group_924.png?v=1725899159" alt="feature Icon" width="28" height="28">
+                </div>
+                <div class="variant__feature-title">
+                  {{ varaintfeature.feature }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if variant.metafields.custom.variant_description %}
+        <div class="variant__description">
+          {{ variant.metafields.custom.variant_description | metafield_tag }}
+        </div>
+      {% endif %}
+
+    </div>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option
       id="{{ input_id }}"
